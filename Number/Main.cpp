@@ -18,27 +18,35 @@ int main()
 		}
 		else if (keypress == 'n')
 		{
-			char keypress2 = '\0';
-			std::cout << "is the answer larger?" << std::endl;
-			std::cin >> keypress2;
-			if (keypress2 == 'y')
+			if (startingValue == middle || endingValue == middle)
 			{
-				startingValue = middle;
-			}
-			else if (keypress2 == 'n')
-			{
-				endingValue = middle;
+				std::cout << "the answer has benn changed" << std::endl;
+				correct = true;
 			}
 			else
 			{
-				continue;
+				char keypress2 = '\0';
+				std::cout << "is the answer larger?" << std::endl;
+				std::cin >> keypress2;
+				if (keypress2 == 'y')
+				{
+					startingValue = middle;
+				}
+				else if (keypress2 == 'n')
+				{
+					endingValue = middle;
+				}
+				else
+				{
+					continue;
+				}
 			}
-
 		}
 		else
 		{
 			continue;
 		}
+
 	}
 
 	return 0;
