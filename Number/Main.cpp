@@ -20,7 +20,7 @@ int main()
 		{
 			if (startingValue == middle || endingValue == middle)
 			{
-				std::cout << "the answer has benn changed" << std::endl;
+				std::cout << "the answer has been changed" << std::endl;
 				correct = true;
 			}
 			else
