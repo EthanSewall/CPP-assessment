@@ -4,6 +4,8 @@
 
 Entity::Entity()
 {
+	maxHealth = 20;
+	health = maxHealth;
 }
 
 
@@ -13,5 +15,22 @@ Entity::~Entity()
 
 bool Entity::isAlive()
 {
-	return health = 0;
+	if (health > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int Entity::attack()
+{
+	return 10;
+}
+
+void Entity::takeDamage(int damage)
+{
+	health -= damage;
 }

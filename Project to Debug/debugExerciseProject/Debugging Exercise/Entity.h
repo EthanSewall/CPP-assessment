@@ -8,9 +8,7 @@ public:
 	virtual int attack();
 	virtual void takeDamage(int damage);
 	bool isAlive();
-
-private:
-	int health;
-	int maxHealth;
+	int maxHealth = 20;
+	int health = 20;
 };
 

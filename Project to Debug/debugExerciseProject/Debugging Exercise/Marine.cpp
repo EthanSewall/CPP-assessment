@@ -4,7 +4,7 @@
 
 Marine::Marine()
 {
-	health = 50;
+   health = 20;
 }
 
 
@@ -20,4 +20,16 @@ int Marine::attack()
 void Marine::takeDamage(int damage)
 {
 	health -= damage;
+}
+
+bool Marine::isAlive(Marine marine)
+{
+	if (marine.health > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

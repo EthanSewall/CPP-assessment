@@ -135,8 +135,6 @@ int main()
 			}
 		}
 
-		
-
 		validInput = false;
 		row = 0;
 		column = 0;
