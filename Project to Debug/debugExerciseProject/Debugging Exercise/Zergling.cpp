@@ -13,7 +13,7 @@ Zergling::~Zergling()
 
 int Zergling::attack()
 {
-	return 4;
+	return 8;
 }
 
 void Zergling::takeDamage(int damage)

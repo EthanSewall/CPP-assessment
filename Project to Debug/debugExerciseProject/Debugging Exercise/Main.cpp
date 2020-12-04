@@ -58,12 +58,14 @@ int main()
 	Zergling swarm[20];
 
 	float target = 0;
+	int j = 0;
+	bool gameFinish = false;
 
 	std::srand(time(NULL));
 
 	cout << "A squad of marines approaches a swarm of Zerglings and opens fire! The Zerglings charge!" << endl;
 	
-	while (marineAlive(squad, 10) && zerglingAlive(swarm, 20)) // Attack each other until only one team is left alive
+	while (!gameFinish) // Attack each other until only one team is left alive
 	{
 		if (marineAlive(squad, 10)) // if there's at least one marine alive
 		{
@@ -71,41 +73,86 @@ int main()
 			{
 				if (squad[i].isAlive(squad[i]))
 				{
-					while (!swarm[(int)target].isAlive(swarm[(int)target]))
+					if (!swarm[(int)target].isAlive(swarm[(int)target]))
 					{
-						target = round((std::rand() / RAND_MAX) * 19);
+						if (zerglingAlive(swarm, 20))
+						{
+							while (!swarm[(int)target].isAlive(swarm[(int)target]))
+							{
+								target = round(std::rand() / (RAND_MAX / 19));
+							}
+						}
 					}
+
 					cout << "Marine " << i << " attacks Zergling "<< target << " for " << squad[i].attack() << " damage. " << endl;
 					int damage = squad[i].attack();
-					swarm[i].takeDamage(damage);
-					if (!swarm[i].isAlive(swarm[i])) // if the zergling dies, it is marked as such
+					swarm[(int)target].takeDamage(damage);
+					if (!swarm[(int)target].isAlive(swarm[(int)target])) // if the zergling dies, it is marked as such
 					{
-						cout << "The zergling target dies." << endl;
+						cout << "Zergling "<< target << " is dead." << endl;
 					}
 				}
 			}
 		}
 		if (zerglingAlive(swarm, 20)) // if there's at least one zergling alive
 		{
-			for (size_t i = 0; i < 10; i++) // loop through zerglings
+			for (size_t i = 0; i < 20; i++) // loop through zerglings
 			{
-				cout << "A zergling attacks for " << swarm[i].attack() << " damage." << endl;
-				squad[i].takeDamage(swarm[i].attack());
-				if (squad[i].isAlive(squad[i]))
+				if (swarm[i].isAlive(swarm[i]))
 				{
+					if (!squad[(int)target].isAlive(squad[(int)target]))
+					{
+						if (marineAlive(squad, 20))
+						{
+							while (!squad[(int)target].isAlive(squad[(int)target]))
+							{
+								target = round(std::rand() / (RAND_MAX / 9));
+							}
+						}
+					}
 
-				}
-				else
-				{
-					cout << "The marine succumbs to his wounds." << endl;
-					cout << "There are ??? marines left." << endl;
+					cout << "Zergling " << i << " attacks Marine " << target << " for " << swarm[i].attack() << " damage. " << endl;
+					int damage = swarm[i].attack();
+					squad[(int)target].takeDamage(damage);
+					if (!squad[(int)target].isAlive(squad[(int)target])) // if the marine dies, it is marked as such
+					{
+						cout << "Marine " << target << " is dead." << endl;
+					}
 				}
 			}
 		}
 		target = 0;
+		for (size_t i = 0; i < 10; i++)
+		{
+			if (squad[i].isAlive(squad[i]))
+			{
+				j++;
+			}
+		}
+
+		if (j == 0)
+		{
+			gameFinish = true;
+		}
+		std::cout << j << " marines remain." <<std::endl;
+		j = 0;
+
+		for (size_t i = 0; i < 20; i++)
+		{
+			if (swarm[i].isAlive(swarm[i]))
+			{
+				j++;
+			}
+		}
+
+		if (j == 0)
+		{
+			gameFinish = true;
+		}
+		std::cout << j << " zerglings remain." << std::endl;
+		j = 0;
 	}
 
-	// Once one team is completely eliminated, the fight ends and one team wins
 	cout << "The fight is over. ";
 	if (marineAlive(squad, 10))
 	{
