@@ -54,6 +54,10 @@ int main()
 			int attack = team1[i].attack();
 			team2[target].takeDamage(attack);
 			std::cout << "Team 1 member " << team1[i].identifier << " attacks Team 2 member " << team2[target].identifier << " for " << attack << " damage." << std::endl;
+			if (team2[target].health < 0)
+			{
+				std::cout << "Team 2 member " << team2[target].identifier << " is out!" << std::endl;
+			}
 		}
 
 		for (int i = 0; i < 4; i++)
@@ -84,8 +88,12 @@ int main()
 			}
 			int attack = team2[i].attack();
 			team1[target].takeDamage(attack);
-			std::cout << "Team 1 member " << team2[i].identifier << " attacks Team 2 member " << team1[target].identifier << " for " << attack << " damage." << std::endl;
-
+			std::cout << "Team 2 member " << team2[i].identifier << " attacks Team 1 member " << team1[target].identifier << " for " << attack << " damage." << std::endl;
+			
+			if (team1[target].health < 0)
+			{
+				std::cout << "Team 1 member " << team1[target].identifier << " is out!" << std::endl;
+			}
 		}
 
 		j = 0;
@@ -96,6 +104,7 @@ int main()
 				j++;
 			}
 		}
+		std::cout << j << " Team 1 members remaining." << std::endl;
 		if (j == 0)
 		{
 			finished = true;
@@ -103,11 +112,12 @@ int main()
 		j = 0;
 		for (int i = 0; i < 4; i++)
 		{
-			if (team1[i].health > 0)
+			if (team2[i].health > 0)
 			{
 				j++;
 			}
 		}
+		std::cout << j << " Team 2 members remaining." << std::endl;
 		if (j == 0)
 		{
 			finished = true;
@@ -168,7 +178,23 @@ int main()
 	}
 	else
 	{
-		std::cout << "Victory: Team 2" << std::endl;
+		j = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (team2[i].health > 0)
+			{
+				j++;
+			}
+		}
+		std::cout << j << std::endl;
+		if (j == 0)
+		{
+			std::cout << "A draw." << std::endl;
+		}
+		else
+		{
+			std::cout << "Victory: Team 2" << std::endl;
+		}
 	}
 
 
