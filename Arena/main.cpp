@@ -197,7 +197,8 @@ int main()
 		}
 	}
 
-
+	char array[100];
+	std::cin >> array;
 
 	return 1;
 }
